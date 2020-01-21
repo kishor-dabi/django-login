@@ -9,7 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-
+from django.contrib.auth.views import (
+    LogoutView as BaseLogoutView, PasswordChangeView as BasePasswordChangeView,
+    PasswordResetDoneView as BasePasswordResetDoneView, PasswordResetConfirmView as BasePasswordResetConfirmView,
+)
 from .form import UserForm, UserLoginForm
 from django.contrib.auth.hashers import (
     PBKDF2PasswordHasher, SHA1PasswordHasher, make_password, check_password
@@ -17,6 +20,7 @@ from django.contrib.auth.hashers import (
 
 # @login_required(None,None , '/login')
 def index(request):
+    print(request.session['id'])
     return render(request, "index.html")
 
     # return HttpResponse("Hello, world. You're at the app index.")
@@ -72,6 +76,16 @@ def login_request(request):
         user = UserLoginForm()
         fields = ['email', 'password']
         return render(request, 'login.html', {'form': user})
+
+
+def logout(request):
+    try:
+        del request.session['id']
+        return redirect('/login')
+    except:
+        pass
+    return HttpResponse("<strong>You are logged out.</strong>")
+    # request.session['id'] = None;
 #
 # def login(request, *args, **kwargs):
 #     if request.method == 'POST':
