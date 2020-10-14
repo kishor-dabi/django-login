@@ -23,9 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'd0_k&4pp1!th8c0n3_rv$#&s+9%8i3d1$@8!#vg6wl2^lm0=mt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://xenodochial-blackwell-2bedb2.netlify.app/']
 
 
 # Application definition
